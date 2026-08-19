@@ -1,0 +1,84 @@
+html, body {
+    background-color: #141414
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+a:hover {
+    color: #B81BE0;
+}
+
+#main {
+    overflow: hidden;
+    min-height: 0;
+}
+
+#algorithms {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+}
+
+
+#nav {
+    background-color: #B81BE0
+}
+
+.resize-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: col-resize;
+  z-index: 10;
+}
+
+.resize-handle.right {
+  right: -4px;
+}
+
+.resize-handle.left {
+  left: -4px;
+}
+
+/*.resize-handle:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}*/
+#accordItem {
+    background-color: #141414
+}
+#accordBtn {
+    color: white; 
+    background-color: #141414 !important
+}
+
+#accordBtn::after {
+  filter: brightness(0) invert(1);
+}
+
+.accordion,
+.accordion-item,
+.accordion-button,
+.accordion-body {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.accordion-body {
+    padding: 0 !important;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+#algsList {
+    color: white;
+    background-color: #101010;
+}
+.list-group-flush, .list-group-item {
+    border: none !important;
+}

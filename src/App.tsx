@@ -1,0 +1,165 @@
+import { useState, useEffect } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import './App.css'
+
+type ResizeDirection = 'left' | 'right' | null
+
+function App() {
+
+  // RESIZING LOGIC
+  const [leftWidth, setLeftWidth] = useState(25)
+  const [rightWidth, setRightWidth] = useState(25)
+  const [resizing, setResizing] = useState<ResizeDirection>(null)
+
+  useEffect(() => {
+    const handlePointerMove = (event: PointerEvent) => {
+      if (resizing === 'left') {
+        const newWidth = (event.clientX / window.innerWidth) * 100
+
+        if (newWidth >= 10 && newWidth <= 60) {
+          setLeftWidth(newWidth)
+        }
+      }
+
+      if (resizing === 'right') {
+        const newWidth =
+          ((window.innerWidth - event.clientX) / window.innerWidth) * 100
+
+        if (newWidth >= 10 && newWidth <= 60) {
+          setRightWidth(newWidth)
+        }
+      }
+    }
+
+    const handlePointerUp = () => {
+      setResizing(null)
+    }
+
+    window.addEventListener('pointermove', handlePointerMove)
+    window.addEventListener('pointerup', handlePointerUp)
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('pointerup', handlePointerUp)
+    }
+  }, [resizing])
+
+return (
+    <>
+      <div className="container-fluid vh-100 d-flex flex-column p-0 text-light">
+
+        {/* NAVBAR */}
+        <div className="navbar navbar-expand-lg text-light" id="nav">
+          <h4 className="ps-4">Algorithm Visualizer</h4>
+        </div>
+
+        {/* MAIN CONTENT */} 
+        <div id="main" className="d-flex flex-grow-1">
+            {/* Algorithms */}
+            <div
+              id="algorithms"
+              className="p-1 position-relative border-end border-light"
+              style={{ width: `${leftWidth}%` }}
+            >
+              <div className="text-center">
+                Algorithms
+              </div>
+              <div className="accordion accordion-flush text-light" id="algorithmAccordion">
+                <div id="accordItem" className="accordion-item border border-0">
+                  <h2 className="accordion-header">
+                    <button id="accordBtn" className="accordion-button border border-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                      Sorting
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" className="accordion-collapse collapse">
+                    <div className="accordion-body text-light">
+                      <ul id="algsList" className="list-group list-group-flush">
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Bubble Sort</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Insertion Sort</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Merge Sort</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Quick Sort</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Heap Sort</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div id="accordItem" className="accordion-item">
+                  <h2 className="accordion-header">
+                    <button id="accordBtn" className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                      Graphs
+                    </button>
+                  </h2>
+                  <div id="flush-collapseTwo" className="accordion-collapse collapse">
+                    <div className="accordion-body text-light">
+                      <ul id="algsList" className="list-group list-group-flush">
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Depth-First Search</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Breadth-First Search</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">A*</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Dijkstra's Algorithm</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Prim</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Kruskal</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div id="accordItem" className="accordion-item">
+                  <h2 className="accordion-header">
+                    <button id="accordBtn" className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                      Trees
+                    </button>
+                  </h2>
+                  <div id="flush-collapseThree" className="accordion-collapse collapse">
+                    <div className="accordion-body text-light">
+                      <ul id="algsList" className="list-group list-group-flush">
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">BST</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">AVL</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">B-Trees</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Heap</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Pre-order Traversal</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Post-order Traversal</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">In-order Traversal</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="resize-handle right"
+                onPointerDown={() => setResizing('left')}
+              />
+            </div>
+
+            {/* Visualizer */}
+            <div
+              id="visualizer"
+              className="text-center p-1"
+              style={{
+                width: `${100 - leftWidth - rightWidth}%`,
+              }}
+            >
+              Visualizer
+            </div>
+
+            {/* Code */}
+            <div
+              id="code"
+              className="p-1 position-relative border-start border-light"
+              style={{ width: `${rightWidth}%` }}
+            >
+              <div className="text-center">
+                Code
+              </div>
+
+              <div
+                className="resize-handle left"
+                onPointerDown={() => setResizing('right')}
+              />
+            </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default App

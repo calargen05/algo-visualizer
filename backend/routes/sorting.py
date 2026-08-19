@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-import algorithms
+import algorithms.sorting as sort_algs
 
 sorting = Blueprint("sorting", __name__)
 
@@ -8,6 +8,6 @@ def bubble_sort_route():
 
     data = request.get_json()
 
-    result = algorithms.bubble_sort(data["array"])
+    result = sort_algs.bubble_sort(data["array"])
 
     return jsonify(result)

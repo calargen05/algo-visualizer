@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { runBubbleSort } from './api/algorithmApi'
 import './App.css'
 
 type ResizeDirection = 'left' | 'right' | null
@@ -44,6 +42,14 @@ function App() {
       window.removeEventListener('pointerup', handlePointerUp)
     }
   }, [resizing])
+
+
+  // ALGORITHM API LOGIC
+  const handleBubbleSort = async () => {
+    const result = await runBubbleSort([5, 2, 8, 1, 4])
+
+    console.log(result)
+  }
 
 return (
     <>
@@ -133,12 +139,17 @@ return (
             {/* Visualizer */}
             <div
               id="visualizer"
-              className="text-center p-1"
+              className="p-1"
               style={{
                 width: `${100 - leftWidth - rightWidth}%`,
               }}
             >
-              Visualizer
+              <div className="text-center">
+                Visualizer
+              </div>
+              <button className='btn' onClick={handleBubbleSort}>
+                Run Bubble Sort
+              </button>
             </div>
 
             {/* Code */}

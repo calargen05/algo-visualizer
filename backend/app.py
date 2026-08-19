@@ -1,10 +1,12 @@
 from flask import Flask
+from flask_cors import CORS
 import algorithms
-import routes
+from routes.sorting import sorting
 
 app = Flask(__name__)
 
-app.register_blueprint(routes.sorting)
+CORS(app, origins=['http://localhost:5173'])
+app.register_blueprint(sorting)
 
 @app.get('/')
 def home():

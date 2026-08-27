@@ -1,4 +1,8 @@
-export async function runBubbleSort(array: number[]) {
+import type { AlgorithmResult } from "./types"
+
+export async function runBubbleSort(
+    array: number[]
+): Promise<AlgorithmResult> {
     const response = await fetch(
         "http://localhost:5000/api/algorithms/sorting/bubble-sort",
         {

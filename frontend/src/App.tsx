@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { runBubbleSort } from './api/algorithmApi'
+import type { AlgorithmStep } from './api/types'
+import SortingVisualizer from './components/sortingVisualizer'
 import './App.css'
 
 type ResizeDirection = 'left' | 'right' | null
@@ -45,11 +47,18 @@ function App() {
 
 
   // ALGORITHM API LOGIC
+  const [steps, setSteps] = useState<AlgorithmStep[]>([])
+  const [currentStep, setCurrentStep] = useState(0)
+
+  const currentStepData = steps[currentStep] ?? null
+
   const handleBubbleSort = async () => {
     const result = await runBubbleSort([5, 2, 8, 1, 4])
 
-    console.log(result)
+    setSteps(result.steps)
+    setCurrentStep(0)
   }
+  
 
 return (
     <>
@@ -139,7 +148,7 @@ return (
             {/* Visualizer */}
             <div
               id="visualizer"
-              className="p-1"
+              className="p-1 d-flex flex-column"
               style={{
                 width: `${100 - leftWidth - rightWidth}%`,
               }}
@@ -147,9 +156,24 @@ return (
               <div className="text-center">
                 Visualizer
               </div>
-              <button className='btn' onClick={handleBubbleSort}>
+              <button
+                onClick={handleBubbleSort}
+                className="btn btn-primary"
+              >
                 Run Bubble Sort
               </button>
+
+              <button
+                onClick={() => {
+                  if (currentStep < steps.length - 1) {
+                    setCurrentStep(currentStep + 1)
+                  }
+                }}
+                className="btn btn-secondary ms-2"
+              >
+                Next Step
+              </button>
+              <SortingVisualizer step={currentStepData} />
             </div>
 
             {/* Code */}

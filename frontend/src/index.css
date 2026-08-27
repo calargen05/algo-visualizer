@@ -82,3 +82,23 @@ a:hover {
 .list-group-flush, .list-group-item {
     border: none !important;
 }
+
+
+
+.sorting-visualizer {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+}
+
+.bar {
+    width: 50px;
+    background-color: #B81BE0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}

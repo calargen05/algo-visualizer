@@ -97,8 +97,18 @@ a:hover {
 
 .bar {
     width: 50px;
+    max-height: 100%;
+
     background-color: #B81BE0;
+
     display: flex;
     justify-content: center;
     align-items: flex-start;
+
+    border-radius: 4px 4px 0 0;
+
+    transition:
+        height 0.2s ease,
+        transform 0.2s ease,
+        background-color 0.2s ease;
 }

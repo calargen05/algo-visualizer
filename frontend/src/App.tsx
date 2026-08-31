@@ -53,11 +53,32 @@ function App() {
   const currentStepData = steps[currentStep] ?? null
 
   const handleBubbleSort = async () => {
-    const result = await runBubbleSort([5, 2, 8, 1, 4])
+    const result = await runBubbleSort([5, 2, 8, 1, 4, 15, 50])
 
     setSteps(result.steps)
     setCurrentStep(0)
   }
+
+
+  // PLAY BUTTON/SPEED LOGIC
+  const [playing, setPlaying] = useState(false)
+  const [speed, setSpeed] = useState(500)
+  useEffect(() => {
+    if (!playing || steps.length === 0) {
+      return
+    }
+
+    const interval = setInterval(() => {
+      setCurrentStep((prevStep) => {
+        if (prevStep >= steps.length - 1) {
+          setPlaying(false)
+          return prevStep
+        }
+        return prevStep + 1
+      })
+    }, speed)
+    return () => clearInterval(interval)
+  }, [playing, steps.length, speed])
   
 
 return (
@@ -156,24 +177,57 @@ return (
               <div className="text-center">
                 Visualizer
               </div>
-              <button
+              
+              <SortingVisualizer step={currentStepData} />
+              <div className="visualizer-controls">
+                <button
                 onClick={handleBubbleSort}
                 className="btn btn-primary"
-              >
-                Run Bubble Sort
-              </button>
+                >
+                  Run Bubble Sort
+                </button>
+                <button
+                  onClick={() => {
+                    if (currentStep < steps.length - 1) {
+                      setCurrentStep(currentStep + 1)
+                    }
+                  }}
+                  className="btn btn-secondary ms-2"
+                >
+                  Next Step
+                </button>
+                <button
+                  onClick={() => setPlaying(true)}
+                  disabled={playing || steps.length === 0}
+                  className="btn btn-success"
+                >
+                  Play
+                </button>
 
-              <button
-                onClick={() => {
-                  if (currentStep < steps.length - 1) {
-                    setCurrentStep(currentStep + 1)
-                  }
-                }}
-                className="btn btn-secondary ms-2"
-              >
-                Next Step
-              </button>
-              <SortingVisualizer step={currentStepData} />
+                <button
+                  onClick={() => setPlaying(false)}
+                  disabled={!playing}
+                  className="btn btn-danger"
+                >
+                  Pause
+                </button>
+                <div className="speed-control">
+                  <label htmlFor="speed">
+                    Speed
+                  </label>
+                  <input
+                    id="speed"
+                    type="range"
+                    min="100"
+                    max="1000"
+                    step="100"
+                    value={speed}
+                    onChange={(e) => setSpeed(Number(e.target.value))}
+                  />
+                  <span>{speed} ms</span>
+                </div>
+              </div>
+              
             </div>
 
             {/* Code */}

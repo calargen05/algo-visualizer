@@ -9,24 +9,39 @@ function SortingVisualizer({ step }: SortingVisualizerProps) {
   if (!step) {
     return (
       <div className="sorting-visualizer">
-        <p>Run an algorithm to begin.</p>
+        <p>Generate an array to begin.</p>
       </div>
     )
   }
 
+  const maxValue = Math.max(...step.array)
+
   return (
     <div className="sorting-visualizer">
-      {step.array.map((value, index) => (
-        <div
-          key={index}
-          className="bar"
-          style={{
-            height: `${value * 40}px`,
-          }}
-        >
-          <span>{value}</span>
-        </div>
-      ))}
+      {step.array.map((value, index) => {
+
+        const isActive = step.indices.includes(index)
+
+        return (
+          <div
+            key={index}
+            className={`bar-container ${
+              isActive ? step.type : ""
+            }`}
+          >
+            <span className="bar-value">
+                {value}
+            </span>
+
+            <div
+                className="bar"
+                style={{
+                  height: `${(value / maxValue) * 100}%`,
+                }}
+              />
+          </div>
+        )
+      })}
     </div>
   )
 }

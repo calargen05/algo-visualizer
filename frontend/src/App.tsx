@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { runBubbleSort } from './api/algorithmApi'
 import type { AlgorithmStep } from './api/types'
 import SortingVisualizer from './components/sortingVisualizer'
+import { generateRandomArray } from './utils/arrayUtils'
 import './App.css'
 
 type ResizeDirection = 'left' | 'right' | null
@@ -53,16 +54,20 @@ function App() {
   const currentStepData = steps[currentStep] ?? null
 
   const handleBubbleSort = async () => {
-    const result = await runBubbleSort([5, 2, 8, 1, 4, 15, 50])
+    const result = await runBubbleSort(array)
 
     setSteps(result.steps)
     setCurrentStep(0)
   }
 
 
-  // PLAY BUTTON/SPEED LOGIC
+  // PLAY BUTTON/SPEED/SORTING ARRAY LOGIC
   const [playing, setPlaying] = useState(false)
   const [speed, setSpeed] = useState(500)
+  const [arraySize, setArraySize] = useState(10)
+  const [array, setArray] = useState<number[]>(
+    generateRandomArray(10)
+  )
   useEffect(() => {
     if (!playing || steps.length === 0) {
       return
@@ -211,6 +216,17 @@ return (
                 >
                   Pause
                 </button>
+                <button
+                  onClick={() => {
+                      setArray(generateRandomArray(arraySize))
+                      setSteps([])
+                      setCurrentStep(0)
+                      setPlaying(false)
+                  }}
+                  className="btn btn-primary"
+                >
+                  Generate Array
+                </button>
                 <div className="speed-control">
                   <label htmlFor="speed">
                     Speed
@@ -224,7 +240,30 @@ return (
                     value={speed}
                     onChange={(e) => setSpeed(Number(e.target.value))}
                   />
-                  <span>{speed} ms</span>
+                  <span>
+                    {speed <= 300
+                      ? "Fast"
+                      : speed <= 700
+                      ? "Medium"
+                      : "Slow"}
+                  </span>
+                </div>
+                <div className="array-size-control">
+
+                  <label htmlFor="array-size">
+                      Array Size: {arraySize}
+                  </label>
+
+                  <input
+                    id="array-size"
+                    type="range"
+                    min="5"
+                    max="100"
+                    value={arraySize}
+                    onChange={(e) => {
+                        setArraySize(Number(e.target.value))
+                    }}
+                  />
                 </div>
               </div>
               

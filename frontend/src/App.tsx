@@ -60,6 +60,8 @@ function App() {
     setCurrentStep(0)
   }
 
+  
+
 
   // PLAY BUTTON/SPEED/SORTING ARRAY LOGIC
   const [playing, setPlaying] = useState(false)

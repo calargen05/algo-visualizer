@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-import algorithms
-from routes.sorting import sorting
+from backend import algorithms
+from backend.routes.sorting import sorting
 
 app = Flask(__name__)
 

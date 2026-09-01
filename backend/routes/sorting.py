@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-import algorithms.sorting as sort_algs
+import backend.algorithms.sorting as sort_algs
 
 sorting = Blueprint("sorting", __name__)
 

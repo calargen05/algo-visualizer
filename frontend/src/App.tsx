@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { runBubbleSort } from './api/algorithmApi'
+import { runBubbleSort, runInsertionSort } from './api/algorithmApi'
 import type { AlgorithmStep } from './api/types'
 import SortingVisualizer from './components/sortingVisualizer'
 import { generateRandomArray } from './utils/arrayUtils'
@@ -49,13 +49,51 @@ function App() {
 
 
   // ALGORITHM API LOGIC
+  type SortingAlgorithm =
+    | 'bubble-sort'
+    | 'insertion-sort'
+    | 'merge-sort'
+    | 'quick-sort'
+    | 'heap-sort'
+
+  const [selectedAlgorithm, setSelectedAlgorithm] =
+    useState<SortingAlgorithm | null>(null)
+
   const [steps, setSteps] = useState<AlgorithmStep[]>([])
   const [currentStep, setCurrentStep] = useState(0)
 
   const currentStepData = steps[currentStep] ?? null
 
-  const handleBubbleSort = async () => {
-    const result = await runBubbleSort(array)
+  const getAlgorithmName = (algorithm: SortingAlgorithm | null) => {
+    if (!algorithm) {
+      return 'Select an algorithm'
+    }
+
+    return algorithm
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+  }
+
+  const handleSortingAlgorithm = async () => {
+    if (!selectedAlgorithm) {
+      return
+    }
+
+    setPlaying(false)
+
+    let result
+
+    switch (selectedAlgorithm) {
+      case 'bubble-sort':
+        result = await runBubbleSort(array)
+        break
+      case 'insertion-sort':
+        result = await runInsertionSort(array)
+        break
+      default:
+        return
+    }
 
     setSteps(result.steps)
     setCurrentStep(0)
@@ -119,8 +157,8 @@ return (
                   <div id="flush-collapseOne" className="accordion-collapse collapse">
                     <div className="accordion-body text-light">
                       <ul id="algsList" className="list-group list-group-flush">
-                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Bubble Sort</a></li>
-                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Insertion Sort</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("bubble-sort")} className="d-block w-100">Bubble Sort</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("insertion-sort")} className="d-block w-100">Insertion Sort</a></li>
                         <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Merge Sort</a></li>
                         <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Quick Sort</a></li>
                         <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Heap Sort</a></li>
@@ -183,16 +221,18 @@ return (
               }}
             >
               <div className="text-center">
-                Visualizer
+                <h5>
+                  {getAlgorithmName(selectedAlgorithm)}
+                </h5>
               </div>
               
               <SortingVisualizer step={currentStepData} />
               <div className="visualizer-controls">
                 <button
-                onClick={handleBubbleSort}
+                onClick={handleSortingAlgorithm}
                 className="btn btn-primary"
                 >
-                  Run Bubble Sort
+                  Run {getAlgorithmName(selectedAlgorithm)}
                 </button>
                 <button
                   onClick={() => {

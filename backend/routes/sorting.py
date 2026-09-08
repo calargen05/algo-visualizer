@@ -11,3 +11,12 @@ def bubble_sort_route():
     result = sort_algs.bubble_sort(data["array"])
 
     return jsonify(result)
+
+@sorting.post("/api/algorithms/sorting/insertion-sort")
+def insertion_sort_route():
+
+    data = request.get_json()
+
+    result = sort_algs.insertion_sort(data["array"])
+
+    return jsonify(result)

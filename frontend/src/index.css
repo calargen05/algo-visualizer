@@ -164,3 +164,7 @@ a:hover {
     background-color: #ffcc00;
     transform: translateY(-10px);
 }
+
+.bar-container.insert .bar {
+    background-color: #00ff00;
+}

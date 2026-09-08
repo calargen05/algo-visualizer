@@ -37,7 +37,7 @@ def bubble_sort(array):
 
 
 def insertion_sort(array):
-    orig_array = array
+    orig_array = array.copy()
     array = array.copy()
     steps = []
 
@@ -46,23 +46,33 @@ def insertion_sort(array):
         j = i - 1
 
         while j >= 0 and key < array[j]:
-            # tell fronted which elements are being compared
+
+            # Tell frontend which elements are being compared
             steps.append({
-                'type' : 'compare',
-                'indices' : [j, i],
-                'array' : array.copy()
+                'type': 'compare',
+                'indices': [j, j + 1],
+                'array': array.copy()
             })
 
+            # Shift larger element to the right
             array[j + 1] = array[j]
 
             steps.append({
-                'type' : 'shift',
-                'indices' : [j, j + 1],
-                'array' : array.copy()
+                'type': 'shift',
+                'indices': [j, j + 1],
+                'array': array.copy()
             })
+
             j -= 1
 
+        # Insert key into its correct position
         array[j + 1] = key
+
+        steps.append({
+            'type': 'insert',
+            'indices': [j + 1],
+            'array': array.copy()
+        })
 
     return {
         "algorithm": "insertion-sort",

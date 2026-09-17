@@ -20,3 +20,15 @@ def insertion_sort_route():
     result = sort_algs.insertion_sort(data["array"])
 
     return jsonify(result)
+
+@sorting.post("/api/algorithms/sorting/merge-sort")
+def merge_sort_route():
+    data = request.get_json()
+    result = sort_algs.merge_sort(data['array'])
+    return jsonify(result)
+
+@sorting.post("/api/algorithms/sorting/quick-sort")
+def quick_sort_route():
+    data = request.get_json()
+    result = sort_algs.quick_sort(data['array'])
+    return jsonify(result)

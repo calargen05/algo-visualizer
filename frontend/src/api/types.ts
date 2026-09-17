@@ -1,5 +1,5 @@
 export type AlgorithmStep = {
-    type: "compare" | "swap" | "shift" | "insert"
+    type: "compare" | "swap" | "shift" | "insert" | "overwrite"
     indices: number[]
     array: number[]
 }

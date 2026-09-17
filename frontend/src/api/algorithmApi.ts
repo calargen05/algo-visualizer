@@ -47,3 +47,51 @@ export async function runInsertionSort(
 
     return response.json()
 }
+
+// Merge Sort API Endpoint
+export async function runMergeSort(
+    array: number[]
+): Promise<AlgorithmResult> {
+    const response = await fetch(
+        "http://localhost:5000/api/algorithms/sorting/merge-sort",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                array: array,
+            }),
+        }
+    )
+
+    if (!response.ok) {
+        throw new Error("Failed to run Merge Sort")
+    }
+
+    return response.json()
+}
+
+// Quick Sort API Endpoint
+export async function runQuickSort(
+    array: number[]
+): Promise<AlgorithmResult> {
+    const response = await fetch(
+        "http://localhost:5000/api/algorithms/sorting/quick-sort",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                array: array,
+            }),
+        }
+    )
+
+    if (!response.ok) {
+        throw new Error("Failed to run Quick Sort")
+    }
+
+    return response.json()
+}

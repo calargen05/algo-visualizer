@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { runBubbleSort, runInsertionSort } from './api/algorithmApi'
+import { runBubbleSort, runInsertionSort, runQuickSort, runMergeSort } from './api/algorithmApi'
 import type { AlgorithmStep } from './api/types'
 import SortingVisualizer from './components/sortingVisualizer'
 import { generateRandomArray } from './utils/arrayUtils'
@@ -91,6 +91,12 @@ function App() {
       case 'insertion-sort':
         result = await runInsertionSort(array)
         break
+      case 'merge-sort':
+        result = await runMergeSort(array)
+        break
+      case 'quick-sort':
+        result = await runQuickSort(array)
+        break
       default:
         return
     }
@@ -159,8 +165,8 @@ return (
                       <ul id="algsList" className="list-group list-group-flush">
                         <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("bubble-sort")} className="d-block w-100">Bubble Sort</a></li>
                         <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("insertion-sort")} className="d-block w-100">Insertion Sort</a></li>
-                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Merge Sort</a></li>
-                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Quick Sort</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("merge-sort")} className="d-block w-100">Merge Sort</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("quick-sort")} className="d-block w-100">Quick Sort</a></li>
                         <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Heap Sort</a></li>
                       </ul>
                     </div>

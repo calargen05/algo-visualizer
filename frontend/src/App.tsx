@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { runBubbleSort, runInsertionSort, runQuickSort, runMergeSort } from './api/algorithmApi'
+import { runBubbleSort, runInsertionSort, runQuickSort, runMergeSort, runHeapSort } from './api/algorithmApi'
 import type { AlgorithmStep } from './api/types'
 import SortingVisualizer from './components/sortingVisualizer'
 import { generateRandomArray } from './utils/arrayUtils'
@@ -97,6 +97,9 @@ function App() {
       case 'quick-sort':
         result = await runQuickSort(array)
         break
+      case 'heap-sort':
+        result = await runHeapSort(array)
+        break
       default:
         return
     }
@@ -167,7 +170,7 @@ return (
                         <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("insertion-sort")} className="d-block w-100">Insertion Sort</a></li>
                         <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("merge-sort")} className="d-block w-100">Merge Sort</a></li>
                         <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("quick-sort")} className="d-block w-100">Quick Sort</a></li>
-                        <li id="algsList" className="list-group-item ps-5"><a href="#" className="d-block w-100">Heap Sort</a></li>
+                        <li id="algsList" className="list-group-item ps-5"><a href="#" onClick={() => setSelectedAlgorithm("heap-sort")} className="d-block w-100">Heap Sort</a></li>
                       </ul>
                     </div>
                   </div>

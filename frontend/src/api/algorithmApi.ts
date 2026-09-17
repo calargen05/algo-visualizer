@@ -95,3 +95,28 @@ export async function runQuickSort(
 
     return response.json()
 }
+
+
+// Heap Sort API Endpoint
+export async function runHeapSort(
+    array: number[]
+): Promise<AlgorithmResult> {
+    const response = await fetch(
+        "http://localhost:5000/api/algorithms/sorting/heap-sort",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                array: array,
+            }),
+        }
+    )
+
+    if (!response.ok) {
+        throw new Error("Failed to run Heap Sort")
+    }
+
+    return response.json()
+}

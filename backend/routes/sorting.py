@@ -32,3 +32,9 @@ def quick_sort_route():
     data = request.get_json()
     result = sort_algs.quick_sort(data['array'])
     return jsonify(result)
+
+@sorting.post("/api/algorithms/sorting/heap-sort")
+def heap_sort_route():
+    data = request.get_json()
+    result = sort_algs.heap_sort(data['array'])
+    return jsonify(result)

@@ -229,3 +229,74 @@ def quick_sort(array):
         "steps": steps,
         "result": array
     }
+
+
+def heap_sort(array):
+    orig_array = array.copy()
+    array = array.copy()
+    steps = []
+
+    def heapify(n, i):
+        largest = i
+        left = 2 * i + 1
+        right = 2 * i + 2
+
+        # Compare parent with left child
+        if left < n:
+            steps.append({
+                'type': 'compare',
+                'indices': [largest, left],
+                'array': array.copy()
+            })
+
+            if array[left] > array[largest]:
+                largest = left
+
+        # Compare current largest with right child
+        if right < n:
+            steps.append({
+                'type': 'compare',
+                'indices': [largest, right],
+                'array': array.copy()
+            })
+
+            if array[right] > array[largest]:
+                largest = right
+
+        # If parent is not the largest, swap and continue heapifying
+        if largest != i:
+            array[i], array[largest] = array[largest], array[i]
+
+            steps.append({
+                'type': 'swap',
+                'indices': [i, largest],
+                'array': array.copy()
+            })
+
+            heapify(n, largest)
+
+    n = len(array)
+
+    # Build max heap
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(n, i)
+
+    # Repeatedly move largest element to the end
+    for i in range(n - 1, 0, -1):
+        array[0], array[i] = array[i], array[0]
+
+        steps.append({
+            'type': 'swap',
+            'indices': [0, i],
+            'array': array.copy()
+        })
+
+        # Restore heap property for remaining unsorted portion
+        heapify(i, 0)
+
+    return {
+        "algorithm": "heap-sort",
+        "initialArray": orig_array,
+        "steps": steps,
+        "result": array
+    }
